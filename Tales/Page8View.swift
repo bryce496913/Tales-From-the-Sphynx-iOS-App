@@ -27,11 +27,13 @@ struct Page8View: View {
                 Button(action: {
                     showPage17 = true
                 }) {
-                    Text("Follow the zigzagging beetle path of light")
+                    Text("Follow the beetle's light")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage17) {
                     Page17View()
@@ -46,8 +48,10 @@ struct Page8View: View {
                     Text("Enter the door")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage9) {
                     Page9View()

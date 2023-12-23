@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Page17View: View {
     @State private var showPage18View = false
+    @State private var showPage10View = false
 
     var body: some View {
         VStack {
@@ -29,8 +30,10 @@ struct Page17View: View {
                     Text("Shine the light at Re")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage18View) {
                     Page18View()
@@ -38,16 +41,20 @@ struct Page17View: View {
 
                 Spacer()
 
-                NavigationLink(
-                    destination: Page10View(),
-                    label: {
-                        Text("Shine the light at Thorth")
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color(hex: "d6be9d"))
-                            .cornerRadius(10)
-                    }
-                )
+                Button(action: {
+                    showPage10View = true
+                }) {
+                    Text("Shine the light at Thorth")
+                        .foregroundColor(.black)
+                        .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
+                        .background(Color(hex: "d6be9d"))
+                        .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
+                }
+                .fullScreenCover(isPresented: $showPage10View) {
+                    Page10View()
+                }
             }
             .padding()
 

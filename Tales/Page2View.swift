@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct Page2View: View {
-    @State private var showGameOver = false
-
+    @State private var showContentView = false
+    
     var body: some View {
         VStack {
             Image(uiImage: #imageLiteral(resourceName: "Two.png"))
@@ -23,7 +23,7 @@ struct Page2View: View {
                 .foregroundColor(.black)
 
             Button(action: {
-                showGameOver = true
+                showContentView = true
             }) {
                 Text("Game Over")
                     .foregroundColor(.black)
@@ -31,7 +31,7 @@ struct Page2View: View {
                     .background(Color(hex: "d6be9d"))
                     .cornerRadius(10)
             }
-            .fullScreenCover(isPresented: $showGameOver) {
+            .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()

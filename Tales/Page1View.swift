@@ -30,8 +30,10 @@ struct Page1View: View {
                     Text("Try to enter the sphynx")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage3) {
                     Page3View()
@@ -46,8 +48,10 @@ struct Page1View: View {
                     Text("Try to find the road")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage2) {
                     Page2View()
@@ -66,4 +70,3 @@ struct Page1View_Previews: PreviewProvider {
         Page1View()
     }
 }
-
