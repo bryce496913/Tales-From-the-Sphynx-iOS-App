@@ -30,8 +30,10 @@ struct Page6View: View {
                     Text("Enter the door")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage7) {
                     Page7View()
@@ -46,8 +48,10 @@ struct Page6View: View {
                     Text("Continue down the corridor")
                         .foregroundColor(.black)
                         .padding()
+                        .frame(width: 150, height: 100) // Set a fixed height
                         .background(Color(hex: "d6be9d"))
                         .cornerRadius(10)
+                        .multilineTextAlignment(.center) // Center the text
                 }
                 .fullScreenCover(isPresented: $showPage8) {
                     Page8View()
