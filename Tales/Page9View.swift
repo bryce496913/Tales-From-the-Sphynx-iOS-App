@@ -13,7 +13,8 @@ struct Page9View: View {
     @State private var showPage10 = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Nine.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,20 +22,13 @@ struct Page9View: View {
 
             Text("On immediate inspection, this new room has nowhere obvious to go to next. Your worrying thought is interrupted by a thunderous sound, followed by rapidly rushing sand filling the room. You need to find a way out before you are buried alive. In the room are two statues, both with levers, one of God Anubis and the other of God Osiris. One of these statues could be the key out of here. If only you had reception, you could Google which each God represents.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Pick Anubis", action: {
                     showPage21 = true
-                }) {
-                    Text("Pick Anubis")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage21) {
                     Page21View()
                 }
@@ -42,17 +36,10 @@ struct Page9View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Pick Osiris", action: {
                     showPage10 = true
-                }) {
-                    Text("Pick Osiris")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage10) {
                     Page10View()
                 }
@@ -60,8 +47,9 @@ struct Page9View: View {
             }
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

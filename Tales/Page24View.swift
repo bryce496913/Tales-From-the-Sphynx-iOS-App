@@ -12,7 +12,8 @@ struct Page24View: View {
     @State private var showContentView = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Twenty-Four.png"))
                 .resizable()
                 .scaledToFit()
@@ -20,25 +21,21 @@ struct Page24View: View {
 
             Text("You make it to the ladder and start to climb, yet your success is blanked by you slipping on one of the ladder’s steps, resulting in you falling into the blackness.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
-            Button(action: {
+            ChoiceButton("Game Over", width: nil, height: nil, action: {
                 showContentView = true
-            }) {
-                Text("Game Over")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
+
+            })
             .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

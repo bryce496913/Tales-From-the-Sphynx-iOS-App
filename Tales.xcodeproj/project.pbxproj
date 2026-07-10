@@ -65,10 +65,9 @@
 		FE02679B2B28C74200F5C31D /* Page24View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE02679A2B28C74200F5C31D /* Page24View.swift */; };
 		FE02679D2B28C77A00F5C31D /* Page25View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE02679C2B28C77A00F5C31D /* Page25View.swift */; };
 		FE0504AD2B289A4F0015CAFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0504AC2B289A4F0015CAFB /* ContentView.swift */; };
+		FE9990012B289A4F0015CAFB /* StoryStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9990002B289A4F0015CAFB /* StoryStyle.swift */; };
 		FE0504AF2B289A510015CAFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0504AE2B289A510015CAFB /* Assets.xcassets */; };
 		FE0504B22B289A510015CAFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE0504B12B289A510015CAFB /* Preview Assets.xcassets */; };
-		FE0504B42B289A510015CAFB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0504B32B289A510015CAFB /* Persistence.swift */; };
-		FE0504B72B289A510015CAFB /* Tales.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE0504B52B289A510015CAFB /* Tales.xcdatamodeld */; };
 		FE38B2192B289DD8004B8919 /* TalesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE38B2182B289DD8004B8919 /* TalesApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -134,8 +133,7 @@
 		FE0504AC2B289A4F0015CAFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FE0504AE2B289A510015CAFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE0504B12B289A510015CAFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FE0504B32B289A510015CAFB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		FE0504B62B289A510015CAFB /* Tales.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tales.xcdatamodel; sourceTree = "<group>"; };
+		FE9990002B289A4F0015CAFB /* StoryStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryStyle.swift; sourceTree = "<group>"; };
 		FE38B2182B289DD8004B8919 /* TalesApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalesApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +207,7 @@
 			children = (
 				FE38B2182B289DD8004B8919 /* TalesApp.swift */,
 				FE0504AC2B289A4F0015CAFB /* ContentView.swift */,
+				FE9990002B289A4F0015CAFB /* StoryStyle.swift */,
 				FE02676A2B28AB1800F5C31D /* Plot1View.swift */,
 				FE02676C2B28B9A300F5C31D /* Plot2View.swift */,
 				FE02676E2B28BA1900F5C31D /* Page1View.swift */,
@@ -237,8 +236,6 @@
 				FE02679C2B28C77A00F5C31D /* Page25View.swift */,
 				FE0504AE2B289A510015CAFB /* Assets.xcassets */,
 				FE02672B2B28A1B000F5C31D /* Images */,
-				FE0504B32B289A510015CAFB /* Persistence.swift */,
-				FE0504B52B289A510015CAFB /* Tales.xcdatamodeld */,
 				FE0504B02B289A510015CAFB /* Preview Content */,
 			);
 			path = Tales;
@@ -358,11 +355,10 @@
 				FE02678F2B28C31100F5C31D /* Page17View.swift in Sources */,
 				FE02678D2B28C26D00F5C31D /* Page16View.swift in Sources */,
 				FE0267912B28C3A100F5C31D /* Page18View.swift in Sources */,
-				FE0504B42B289A510015CAFB /* Persistence.swift in Sources */,
 				FE02679D2B28C77A00F5C31D /* Page25View.swift in Sources */,
 				FE0267852B28C05400F5C31D /* Page12View.swift in Sources */,
 				FE0504AD2B289A4F0015CAFB /* ContentView.swift in Sources */,
-				FE0504B72B289A510015CAFB /* Tales.xcdatamodeld in Sources */,
+				FE9990012B289A4F0015CAFB /* StoryStyle.swift in Sources */,
 				FE0267812B28BF0400F5C31D /* Page10View.swift in Sources */,
 				FE0267932B28C46700F5C31D /* Page19View.swift in Sources */,
 				FE0267992B28C6F500F5C31D /* Page22View.swift in Sources */,
@@ -592,16 +588,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FE0504B52B289A510015CAFB /* Tales.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				FE0504B62B289A510015CAFB /* Tales.xcdatamodel */,
-			);
-			currentVersion = FE0504B62B289A510015CAFB /* Tales.xcdatamodel */;
-			path = Tales.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 /* End XCVersionGroup section */
 	};
 	rootObject = FE05049F2B289A4F0015CAFB /* Project object */;

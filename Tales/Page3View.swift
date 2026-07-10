@@ -13,7 +13,8 @@ struct Page3View: View {
     @State private var showPage6 = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Three.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,20 +22,13 @@ struct Page3View: View {
 
             Text("After climbing the stairs of the Sphynx, you enter the main hall. Though empty, the room is dimly lit, hinting at the chance of more people inside. As your eyes adjust to the change of light, you notice, at the back, the hall splits in two different directions.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Head down the left", action: {
                     showPage4 = true
-                }) {
-                    Text("Head down the left")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage4) {
                     Page4View()
                 }
@@ -42,17 +36,10 @@ struct Page3View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Head down the right", action: {
                     showPage6 = true
-                }) {
-                    Text("Head down the right")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage6) {
                     Page6View()
                 }
@@ -60,8 +47,9 @@ struct Page3View: View {
             }
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

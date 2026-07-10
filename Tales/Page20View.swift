@@ -12,7 +12,8 @@ struct Page20View: View {
     @State private var showContentView = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Twenty.png"))
                 .resizable()
                 .scaledToFit()
@@ -20,25 +21,21 @@ struct Page20View: View {
 
             Text("You wiggle, crawl, and shimmy your way through the winding path. The cat pauses frequently to be sure that you are still following. After several claustrophobic minutes, you tumble onto a white polished tiled floor. You look up to notice you are on the floor of a gift shop. A lady with the cat in hand walks to you and says, “sorry, we are not open for another hour.” You think to yourself, how cheap it is to exit through the gift shop.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
-            Button(action: {
+            ChoiceButton("Game Over", width: nil, height: nil, action: {
                 showContentView = true
-            }) {
-                Text("Game Over")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
+
+            })
             .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

@@ -10,9 +10,10 @@ import SwiftUI
 
 struct Page2View: View {
     @State private var showContentView = false
-    
+
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Two.png"))
                 .resizable()
                 .scaledToFit()
@@ -20,25 +21,21 @@ struct Page2View: View {
 
             Text("After hours of wandering in the desert heat, completely disoriented and unaware of how to get back to the Sphynx, you try to push on. Day turns to night and the heat turns to cold, you collapse in the sand. And as quickly as the night came, darkness takes your soul. Now just another statistic of deaths in the desert.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
-            Button(action: {
+            ChoiceButton("Game Over", width: nil, height: nil, action: {
                 showContentView = true
-            }) {
-                Text("Game Over")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
+
+            })
             .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

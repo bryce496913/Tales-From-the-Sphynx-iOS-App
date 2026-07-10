@@ -13,7 +13,8 @@ struct Page4View: View {
     @State private var showPage5 = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Four.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,20 +22,13 @@ struct Page4View: View {
 
             Text("You wander slowly down the left corridor and find yourself in a small room. In the center of the room, there is a pit that stretches from side to side and seems to be about 1.5 meters in length. On the other side of the pit is a door. Unenthusiastic about wanting to jump over the pit, you look around and notice a door just to your left.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Enter the door on the left", action: {
                     showPage16 = true
-                }) {
-                    Text("Enter the door on the left")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage16) {
                     Page16View()
                 }
@@ -42,17 +36,10 @@ struct Page4View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Jump the pit", action: {
                     showPage5 = true
-                }) {
-                    Text("Jump the pit")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage5) {
                     Page5View()
                 }
@@ -60,8 +47,9 @@ struct Page4View: View {
             }
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

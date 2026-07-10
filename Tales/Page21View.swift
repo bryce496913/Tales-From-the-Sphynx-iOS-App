@@ -12,7 +12,8 @@ struct Page21View: View {
     @State private var showContentView = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Twenty-One.png"))
                 .resizable()
                 .scaledToFit()
@@ -20,25 +21,21 @@ struct Page21View: View {
 
             Text("As you pull the lever for Anubis, you suddenly hear howls of a jackal, and the statue of Anubis stands up. It is time for Anubis to take you. As the God of death, he will be sure to provide you the perfect burial. As Anubis takes you deep into the fallen sands, he too disappears into the sands, and you are left, forever trapped.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
-            Button(action: {
+            ChoiceButton("Game Over", width: nil, height: nil, action: {
                 showContentView = true
-            }) {
-                Text("Game Over")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
+
+            })
             .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 
