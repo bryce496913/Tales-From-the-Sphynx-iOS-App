@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct Page13View: View {
-    @State private var showContentView = false
 
     var body: some View {
         ScrollView {
@@ -23,14 +22,8 @@ struct Page13View: View {
                 .padding()
                 .foregroundColor(StoryStyle.textColor)
 
-            ChoiceButton("Congratulations", width: nil, height: nil, action: {
-                showContentView = true
-
-            })
-            .fullScreenCover(isPresented: $showContentView) {
-                ContentView()
-            }
-            .padding()
+            AdventureResetButtons()
+                .padding()
 
             Spacer()
             }

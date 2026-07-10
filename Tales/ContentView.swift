@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var navigationState = AppNavigationState()
     @State private var isSplashActive = true
 
     var body: some View {
@@ -25,7 +26,12 @@ struct ContentView: View {
                     }
             } else {
                 MainMenu()
+                    .environmentObject(navigationState)
             }
+        }
+        .fullScreenCover(item: $navigationState.adventureSession) { _ in
+            Plot1View()
+                .environmentObject(navigationState)
         }
     }
 }
@@ -46,8 +52,7 @@ struct SplashScreen: View {
 }
 
 struct MainMenu: View {
-
-    @State private var showGame = false
+    @EnvironmentObject private var navigationState: AppNavigationState
 
     var body: some View {
 
@@ -59,15 +64,12 @@ struct MainMenu: View {
                 .padding()
 
             ChoiceButton("New Game", width: nil, height: nil, action: {
-                self.showGame = true
+                navigationState.startNewAdventure()
 
             })
 
             Spacer()
 
-        }
-        .fullScreenCover(isPresented: $showGame) {
-            Plot1View()
         }
         .background(StoryStyle.menuBackground.edgesIgnoringSafeArea(.all))
 
