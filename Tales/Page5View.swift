@@ -13,7 +13,8 @@ struct Page5View: View {
     @State private var showPage19 = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Five.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,20 +22,13 @@ struct Page5View: View {
 
             Text("You make the jump successfully and enter the door. Once inside, you can hear what seems like meowing. From the shadows, an Abyssinian cat emerges. This cat proceeds to walk up to you while continuing to meow. And with an inviting flick of its tail, the cat disappears through a large crack in the wall.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Follow the cat through the crack", action: {
                     showPage20 = true
-                }) {
-                    Text("Follow the cat through the crack")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage20) {
                     Page20View()
                 }
@@ -42,17 +36,10 @@ struct Page5View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Continue down the hallway", action: {
                     showPage19 = true
-                }) {
-                    Text("Continue down the hallway")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage19) {
                     Page19View()
                 }
@@ -60,8 +47,9 @@ struct Page5View: View {
             }
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

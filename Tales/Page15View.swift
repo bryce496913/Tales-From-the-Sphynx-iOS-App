@@ -12,7 +12,8 @@ struct Page15View: View {
     @State private var showContentView = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Fifteen.png"))
                 .resizable()
                 .scaledToFit()
@@ -20,25 +21,21 @@ struct Page15View: View {
 
             Text("The floor starts to rumble and before you know it, the floor turned to a slide, you lose your footing and slide down into the darkness. As you slide, you look down to your feet and see the light getting closer. Just like that, you pop out the Sphynx’s backside, onto the sand. You stand up and notice a helicopter above. The search and rescue team had been looking for you since someone reported the vehicle crash. You will be saved.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
-            Button(action: {
+            ChoiceButton("Game Over", width: nil, height: nil, action: {
                 showContentView = true
-            }) {
-                Text("Game Over")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
+
+            })
             .fullScreenCover(isPresented: $showContentView) {
                 ContentView()
             }
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

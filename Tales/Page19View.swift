@@ -13,7 +13,8 @@ struct Page19View: View {
     @State private var showPage18View = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Nineteen.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,7 +22,7 @@ struct Page19View: View {
 
             Text("This room is clearly light, and you are able to have a good look around. The room is lacking anything but two upright sarcophagi. On the floor in front of each sarcophagus is a set of hieroglyphics. You think to yourself, “This is just like those dumb emoji puzzles on Facebook; I am sure I can figure out which is the correct way to go.\"")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
                 VStack {
@@ -30,17 +31,10 @@ struct Page19View: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
 
-                    Button(action: {
+                    ChoiceButton("Open the left sarcophagus", action: {
                         showPage18View = true
-                    }) {
-                        Text("Open the left sarcophagus")
-                            .foregroundColor(.black)
-                            .padding()
-                            .frame(width: 150, height: 100) // Set a fixed height
-                            .background(Color(hex: "d6be9d"))
-                            .cornerRadius(10)
-                            .multilineTextAlignment(.center) // Center the text
-                    }
+
+                })
                     .fullScreenCover(isPresented: $showPage18View) {
                         Page18View()
                     }
@@ -54,17 +48,10 @@ struct Page19View: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
 
-                    Button(action: {
+                    ChoiceButton("Open the right sarcophagus", action: {
                         showPage22View = true
-                    }) {
-                        Text("Open the right sarcophagus")
-                            .foregroundColor(.black)
-                            .padding()
-                            .frame(width: 150, height: 100) // Set a fixed height
-                            .background(Color(hex: "d6be9d"))
-                            .cornerRadius(10)
-                            .multilineTextAlignment(.center) // Center the text
-                    }
+
+                })
                     .fullScreenCover(isPresented: $showPage22View) {
                         Page22View()
                     }
@@ -73,8 +60,9 @@ struct Page19View: View {
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

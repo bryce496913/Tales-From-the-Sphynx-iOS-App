@@ -13,7 +13,8 @@ struct Page6View: View {
     @State private var showPage8 = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Six.png"))
                 .resizable()
                 .scaledToFit()
@@ -21,20 +22,13 @@ struct Page6View: View {
 
             Text("You wander slowly down the right corridor. Suddenly, you stop and listen. Now in silence, you can hear a faint mumble. You look over to where you think the sound is coming from. You start to slowly head in the direction of the noise and find a door. Though the mumbling has got louder, you are unable to make out if it is human or not.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Enter the door", action: {
                     showPage7 = true
-                }) {
-                    Text("Enter the door")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage7) {
                     Page7View()
                 }
@@ -42,17 +36,10 @@ struct Page6View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Continue down the corridor", action: {
                     showPage8 = true
-                }) {
-                    Text("Continue down the corridor")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage8) {
                     Page8View()
                 }
@@ -60,8 +47,9 @@ struct Page6View: View {
             }
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

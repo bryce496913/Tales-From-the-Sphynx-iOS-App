@@ -14,7 +14,8 @@ struct Page18View: View {
     @State private var showPage15View = false
 
     var body: some View {
-        VStack {
+        ScrollView {
+            VStack {
             Image(uiImage: #imageLiteral(resourceName: "Eighteen.png"))
                 .resizable()
                 .scaledToFit()
@@ -22,25 +23,18 @@ struct Page18View: View {
 
             Text("This is the darkest room you have entered. There is only one torch in this room, just off to your right. The only thing this torch is illuminating is a ladder that leads to an opening in the ceiling. Taking this torch would make exploring the rest of the room easier.")
                 .padding()
-                .foregroundColor(.black)
+                .foregroundColor(StoryStyle.textColor)
 
             HStack {
-                Button(action: {
+                ChoiceButton("Climb the ladder", action: {
                     let randomNumber = Int.random(in: 1...2)
                     if randomNumber == 1 {
                         showPage12View = true
                     } else {
                         showPage24View = true
                     }
-                }) {
-                    Text("Climb the ladder")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage12View) {
                     Page12View()
                 }
@@ -50,17 +44,10 @@ struct Page18View: View {
 
                 Spacer()
 
-                Button(action: {
+                ChoiceButton("Take torch to explore", action: {
                     showPage15View = true
-                }) {
-                    Text("Take torch to explore")
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(width: 150, height: 100) // Set a fixed height
-                        .background(Color(hex: "d6be9d"))
-                        .cornerRadius(10)
-                        .multilineTextAlignment(.center) // Center the text
-                }
+
+                })
                 .fullScreenCover(isPresented: $showPage15View) {
                     Page15View()
                 }
@@ -68,8 +55,9 @@ struct Page18View: View {
             .padding()
 
             Spacer()
+            }
         }
-        .background(Color(hex: "00aeef").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 

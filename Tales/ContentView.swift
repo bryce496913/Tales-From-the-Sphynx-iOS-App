@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "00aeef").edgesIgnoringSafeArea(.all)
+            StoryStyle.pageBackground.edgesIgnoringSafeArea(.all)
 
             if isSplashActive {
                 SplashScreen()
@@ -41,7 +41,7 @@ struct SplashScreen: View {
                 .padding()
             Spacer()
         }
-        .background(Color(hex: "81b9e4").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.menuBackground.edgesIgnoringSafeArea(.all))
     }
 }
 
@@ -52,29 +52,24 @@ struct MainMenu: View {
     var body: some View {
 
         VStack {
-            
+
             Image(uiImage:#imageLiteral(resourceName: "Title-Screen-Art.png"))
                 .resizable()
                 .scaledToFit()
                 .padding()
-            
-            Button(action: {
+
+            ChoiceButton("New Game", width: nil, height: nil, action: {
                 self.showGame = true
-            }) {
-                Text("New Game")
-                    .foregroundColor(.black)
-                    .padding()
-                    .background(Color(hex: "d6be9d"))
-                    .cornerRadius(10)
-            }
-            
+
+            })
+
             Spacer()
-            
+
         }
         .fullScreenCover(isPresented: $showGame) {
             Plot1View()
         }
-        .background(Color(hex:"81b9e4").edgesIgnoringSafeArea(.all))
+        .background(StoryStyle.menuBackground.edgesIgnoringSafeArea(.all))
 
     }
 }
