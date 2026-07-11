@@ -9,35 +9,19 @@
 import SwiftUI
 
 struct Page1View: View {
-    @State private var showPage2 = false
-    @State private var showPage3 = false
 
     var body: some View {
         StoryPageLayout(
             imageName: "One.png",
-            text: "As you stand at the feet of this enormous Sphynx, you notice that the main doorway is open. You think to yourself, head inside to find help or head back in the direction where the road could be."
+            text: "As you stand at the feet of this enormous Sphinx, you notice that the main doorway is open. You think to yourself, head inside to find help or head back in the direction where the road could be."
         ) {
 
             HStack {
-                ChoiceButton("Try to enter the sphynx", action: {
-                    showPage3 = true
-
-                })
-                .storyFullScreenCover(isPresented: $showPage3) {
-                    Page3View()
-                }
-                .padding()
+                StoryNavigationButton(title: "Try to enter the sphinx", route: .page(3)).padding()
 
                 Spacer()
 
-                ChoiceButton("Try to find the road", action: {
-                    showPage2 = true
-
-                })
-                .storyFullScreenCover(isPresented: $showPage2) {
-                    Page2View()
-                }
-                .padding()
+                StoryNavigationButton(title: "Try to find the road", route: .page(2)).padding()
             }
         }
     }

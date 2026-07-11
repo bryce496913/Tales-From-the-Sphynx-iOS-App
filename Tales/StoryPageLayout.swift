@@ -1,5 +1,9 @@
 import SwiftUI
 
+typealias StoryPageView<Content: View> = StoryPageLayout<Content>
+typealias StoryImageView = AnimatedStoryImage
+typealias TypewriterTextView = TypewriterText
+
 struct StoryPageLayout<Content: View>: View {
     let imageName: String
     let title: String?
@@ -32,7 +36,13 @@ struct StoryPageLayout<Content: View>: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 18) {
-                        AnimatedStoryImage(imageName: imageName, motionStyle: effects.imageMotion)
+                        ZStack {
+                            AnimatedStoryImage(imageName: imageName, motionStyle: effects.imageMotion)
+                            DustParticleOverlay(intensity: effects.dustIntensity)
+                                .clipShape(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous))
+                                .allowsHitTesting(false)
+                                .accessibilityHidden(true)
+                        }
 
                         VStack(alignment: .leading, spacing: 12) {
                             if let title {

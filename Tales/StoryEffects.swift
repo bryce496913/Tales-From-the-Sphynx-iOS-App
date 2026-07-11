@@ -25,8 +25,9 @@ struct StoryPageEffects {
 
 final class HapticManager {
     static let shared = HapticManager(); private init() {}
-    func playChoicePress() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
-    func playChoiceTap() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
-    func playTransition() { UISelectionFeedbackGenerator().selectionChanged() }
-    func playGameOver() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    private var hapticsEnabled: Bool { UserDefaults.standard.object(forKey: "Tales.hapticsEnabled") as? Bool ?? true }
+    func playChoicePress() { guard hapticsEnabled else { return }; UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+    func playChoiceTap() { guard hapticsEnabled else { return }; UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+    func playTransition() { guard hapticsEnabled else { return }; UISelectionFeedbackGenerator().selectionChanged() }
+    func playGameOver() { guard hapticsEnabled else { return }; UINotificationFeedbackGenerator().notificationOccurred(.warning) }
 }
