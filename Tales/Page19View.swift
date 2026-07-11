@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct Page19View: View {
-    @State private var showPage22View = false
-    @State private var showPage18View = false
 
     var body: some View {
         StoryPageLayout(
@@ -25,13 +23,7 @@ struct Page19View: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
 
-                    ChoiceButton("Open the left sarcophagus", action: {
-                        showPage18View = true
-
-                })
-                    .storyFullScreenCover(isPresented: $showPage18View) {
-                        Page18View()
-                    }
+                    StoryNavigationButton(title: "Open the left sarcophagus", route: .page(18))
                 }
 
                 Spacer()
@@ -42,13 +34,7 @@ struct Page19View: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
 
-                    ChoiceButton("Open the right sarcophagus", action: {
-                        showPage22View = true
-
-                })
-                    .storyFullScreenCover(isPresented: $showPage22View) {
-                        Page22View()
-                    }
+                    StoryNavigationButton(title: "Open the right sarcophagus", route: .page(22))
                 }
             }
             .padding()

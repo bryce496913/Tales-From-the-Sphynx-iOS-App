@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct Page18View: View {
-    @State private var showPage12View = false
-    @State private var showPage24View = false
-    @State private var showPage15View = false
 
     var body: some View {
         StoryPageLayout(
@@ -20,32 +17,11 @@ struct Page18View: View {
         ) {
 
             HStack {
-                ChoiceButton("Climb the ladder", action: {
-                    let randomNumber = Int.random(in: 1...2)
-                    if randomNumber == 1 {
-                        showPage12View = true
-                    } else {
-                        showPage24View = true
-                    }
-
-                })
-                .storyFullScreenCover(isPresented: $showPage12View) {
-                    Page12View()
-                }
-                .storyFullScreenCover(isPresented: $showPage24View) {
-                    Page24View()
-                }
-
+                RandomStoryNavigationButton(title: "Climb the ladder", routes: [.page(12), .page(24)])
                 Spacer()
 
-                ChoiceButton("Take torch to explore", action: {
-                    showPage15View = true
-
-                })
-                .storyFullScreenCover(isPresented: $showPage15View, style: .torchReveal) {
-                    Page15View()
+                StoryNavigationButton(title: "Take torch to explore", route: .page(15))
                 }
-            }
             .padding()
         }
     }

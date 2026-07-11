@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FEA200062B300001000001 /* StoryNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA100062B300001000001 /* StoryNavigationButton.swift */; };
 		FEA200002B300001000001 /* StoryEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA100002B300001000001 /* StoryEffects.swift */; };
 		FEA200012B300001000001 /* StoryTransitionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA100012B300001000001 /* StoryTransitionContainer.swift */; };
 		FEA200022B300001000001 /* TypewriterText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA100022B300001000001 /* TypewriterText.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FEA100062B300001000001 /* StoryNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryNavigationButton.swift; sourceTree = "<group>"; };
 		FEA100002B300001000001 /* StoryEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEffects.swift; sourceTree = "<group>"; };
 		FEA100012B300001000001 /* StoryTransitionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTransitionContainer.swift; sourceTree = "<group>"; };
 		FEA100022B300001000001 /* TypewriterText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypewriterText.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				FEA100032B300001000001 /* DustParticleOverlay.swift */,
 				FEA100042B300001000001 /* AnimatedStoryImage.swift */,
 				FEA100052B300001000001 /* ChoiceButtonStyle.swift */,
+				FEA100062B300001000001 /* StoryNavigationButton.swift */,
 				FE02676A2B28AB1800F5C31D /* Plot1View.swift */,
 				FE02676C2B28B9A300F5C31D /* Plot2View.swift */,
 				FE02676E2B28BA1900F5C31D /* Page1View.swift */,
@@ -407,6 +410,7 @@
 				FEA200032B300001000001 /* DustParticleOverlay.swift in Sources */,
 				FEA200042B300001000001 /* AnimatedStoryImage.swift in Sources */,
 				FEA200052B300001000001 /* ChoiceButtonStyle.swift in Sources */,
+				FEA200062B300001000001 /* StoryNavigationButton.swift in Sources */,
 				FE0267812B28BF0400F5C31D /* Page10View.swift in Sources */,
 				FE0267932B28C46700F5C31D /* Page19View.swift in Sources */,
 				FE0267992B28C6F500F5C31D /* Page22View.swift in Sources */,

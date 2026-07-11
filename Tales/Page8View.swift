@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct Page8View: View {
-    @State private var showPage17 = false
-    @State private var showPage9 = false
 
     var body: some View {
         StoryPageLayout(
@@ -19,25 +17,11 @@ struct Page8View: View {
         ) {
 
             HStack {
-                ChoiceButton("Follow the beetle's light", action: {
-                    showPage17 = true
-
-                })
-                .storyFullScreenCover(isPresented: $showPage17, style: .torchReveal) {
-                    Page17View()
-                }
-                .padding()
+                StoryNavigationButton(title: "Follow the beetle's light", route: .page(17)).padding()
 
                 Spacer()
 
-                ChoiceButton("Enter the door", action: {
-                    showPage9 = true
-
-                })
-                .storyFullScreenCover(isPresented: $showPage9, style: .stoneDoor) {
-                    Page9View()
-                }
-                .padding()
+                StoryNavigationButton(title: "Enter the door", route: .page(9)).padding()
             }
         }
     }

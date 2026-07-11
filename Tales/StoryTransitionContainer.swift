@@ -39,9 +39,3 @@ struct StoryTransitionContainer<Content: View>: View {
     private func run() { progress = reduceMotion ? 1 : 0; withAnimation(.easeInOut(duration: reduceMotion ? 0.15 : duration)) { progress = 1 }; DispatchQueue.main.asyncAfter(deadline: .now() + duration) { onComplete?() } }
     private var duration: TimeInterval { reduceMotion ? 0.15 : (style == .sandFade ? 0.65 : 0.85) }
 }
-
-extension View {
-    func storyFullScreenCover<Content: View>(isPresented: Binding<Bool>, style: StoryTransitionStyle = .sandFade, @ViewBuilder content: @escaping () -> Content) -> some View {
-        fullScreenCover(isPresented: isPresented) { StoryTransitionContainer(style: style) { content() } }
-    }
-}

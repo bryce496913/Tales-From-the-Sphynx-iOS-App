@@ -8,6 +8,7 @@ struct AnimatedStoryImage: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isAnimating = false
+    @State private var hasStartedAnimation = false
 
     var body: some View {
         Image(uiImage: UIImage(named: imageName) ?? UIImage(named: imageName.replacingOccurrences(of: ".png", with: "")) ?? UIImage())
@@ -25,7 +26,7 @@ struct AnimatedStoryImage: View {
             .shadow(color: AppTheme.shadow, radius: 16, x: 0, y: 10)
             .accessibilityLabel(Text(accessibilityLabel))
             .onAppear { startAnimation() }
-            .onDisappear { isAnimating = false }
+            .onDisappear { }
             .onChange(of: reduceMotion) { _ in startAnimation() }
             .onChange(of: motionStyle) { _ in startAnimation() }
     }
@@ -68,9 +69,12 @@ struct AnimatedStoryImage: View {
     private func startAnimation() {
         guard !movementDisabled else {
             isAnimating = false
+            hasStartedAnimation = false
             return
         }
 
+        guard !hasStartedAnimation else { return }
+        hasStartedAnimation = true
         isAnimating = false
         DispatchQueue.main.async {
             withAnimation(.easeInOut(duration: animationDuration).repeatForever(autoreverses: true)) {

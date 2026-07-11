@@ -12,29 +12,34 @@ struct ContentView: View {
     @State private var isSplashActive = true
 
     var body: some View {
-        ZStack {
-            EgyptianBackground()
+        NavigationStack(path: $navigationState.path) {
+            ZStack {
+                EgyptianBackground()
 
-            if isSplashActive {
-                SplashScreen()
-                    .transition(.opacity)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            withAnimation(.easeInOut(duration: 0.45)) {
-                                isSplashActive = false
+                if isSplashActive {
+                    SplashScreen()
+                        .transition(.opacity)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation(.easeInOut(duration: 0.45)) {
+                                    isSplashActive = false
+                                }
                             }
                         }
-                    }
-            } else {
-                MainMenu()
+                } else {
+                    MainMenu()
+                        .environmentObject(navigationState)
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
+                }
+            }
+            .navigationBarBackButtonHidden(true)
+            .navigationDestination(for: StoryRoute.self) { route in
+                StoryDestinationView(route: route)
                     .environmentObject(navigationState)
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    .navigationBarBackButtonHidden(true)
             }
         }
-        .fullScreenCover(item: $navigationState.adventureSession) { _ in
-            Plot1View()
-                .environmentObject(navigationState)
-        }
+        .environmentObject(navigationState)
     }
 }
 
@@ -92,10 +97,16 @@ struct MainMenu: View {
                 }
                 .goldCard()
 
-                MenuButton(title: "New Game") {
+                if navigationState.hasSavedProgress {
+                    MenuButton(title: "Continue Adventure") {
+                        navigationState.continueAdventure()
+                    }
+                    .padding(.top, 6)
+                }
+
+                MenuButton(title: navigationState.hasSavedProgress ? "New Adventure" : "New Game") {
                     navigationState.startNewAdventure()
                 }
-                .padding(.top, 6)
 
                 Spacer(minLength: 30)
             }
