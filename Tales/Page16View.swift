@@ -41,10 +41,10 @@ struct Page16View: View {
                     }
 
                 })
-                .fullScreenCover(isPresented: $showPage19View) {
+                .storyFullScreenCover(isPresented: $showPage19View) {
                     Page19View()
                 }
-                .fullScreenCover(isPresented: $showPage25View) {
+                .storyFullScreenCover(isPresented: $showPage25View) {
                     Page25View()
                 }
 
@@ -53,7 +53,7 @@ struct Page16View: View {
                 ChoiceButton("Talk to the spider and ask nicely to let you in the door", action: {
                     showPage17View = true
                 })
-                .fullScreenCover(isPresented: $showPage17View) {
+                .storyFullScreenCover(isPresented: $showPage17View) {
                     Page17View()
                 }
             }

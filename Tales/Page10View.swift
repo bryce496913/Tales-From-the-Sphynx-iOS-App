@@ -40,7 +40,7 @@ struct Page10View: View {
                     }
 
                 })
-                .fullScreenCover(isPresented: $showPage12) {
+                .storyFullScreenCover(isPresented: $showPage12) {
                     Page12View()
                 }
                 .padding()
@@ -51,7 +51,7 @@ struct Page10View: View {
                     showPage11 = true
 
                 })
-                .fullScreenCover(isPresented: $showPage11) {
+                .storyFullScreenCover(isPresented: $showPage11) {
                     Page11View()
                 }
                 .padding()

@@ -10,7 +10,7 @@ struct Plot2View: View {
             text: "Slowly the dust settled as the vehicle comes to rest after countless tumbles. You awake and managed to crawl from the wreckage. Though extremely shaken, you seem to have no other physical injuries. You look around to get your bearings. The road was nowhere to be seen and the only thing in sight was an Egyptian Sphynx. Hoping this was a tourist attraction where you might find help, you head over."
         ) {
             ChoiceButton("Continue") { showPage1 = true }
-                .fullScreenCover(isPresented: $showPage1) { Page1View() }
+                .storyFullScreenCover(isPresented: $showPage1) { Page1View() }
         }
     }
 }

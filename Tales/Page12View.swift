@@ -35,7 +35,7 @@ struct Page12View: View {
                     showPage14View = true
 
                 })
-                .fullScreenCover(isPresented: $showPage14View) {
+                .storyFullScreenCover(isPresented: $showPage14View, style: .stoneDoor) {
                     Page14View()
                 }
                 .padding()
@@ -44,7 +44,7 @@ struct Page12View: View {
                     showPage13View = true
 
                 })
-                .fullScreenCover(isPresented: $showPage13View) {
+                .storyFullScreenCover(isPresented: $showPage13View, style: .torchReveal) {
                     Page13View()
                 }
                 .padding()
