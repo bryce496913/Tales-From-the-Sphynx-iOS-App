@@ -13,22 +13,10 @@ struct Page19View: View {
     @State private var showPage18View = false
 
     var body: some View {
-        ScrollView {
-            VStack {
-            Image(uiImage: #imageLiteral(resourceName: "Nineteen.png"))
-                .resizable()
-                .scaledToFit()
-                .padding(8)
-                .background(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).fill(AppTheme.cardAlt))
-                .overlay(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
-                .shadow(color: AppTheme.shadow, radius: 14, x: 0, y: 8)
-                .padding(.horizontal)
-
-            Text("This room is clearly light, and you are able to have a good look around. The room is lacking anything but two upright sarcophagi. On the floor in front of each sarcophagus is a set of hieroglyphics. You think to yourself, “This is just like those dumb emoji puzzles on Facebook; I am sure I can figure out which is the correct way to go.\"")
-                .padding()
-                .foregroundColor(StoryStyle.textColor)
-                .font(.system(.body, design: .serif))
-                .lineSpacing(6)
+        StoryPageLayout(
+            imageName: "Nineteen.png",
+            text: "This room is clearly light, and you are able to have a good look around. The room is lacking anything but two upright sarcophagi. On the floor in front of each sarcophagus is a set of hieroglyphics. You think to yourself, “This is just like those dumb emoji puzzles on Facebook; I am sure I can figure out which is the correct way to go.\""
+        ) {
 
             HStack {
                 VStack {
@@ -64,11 +52,7 @@ struct Page19View: View {
                 }
             }
             .padding()
-
-            Spacer()
-            }
         }
-        .background(StoryStyle.pageBackground.edgesIgnoringSafeArea(.all))
     }
 }
 
