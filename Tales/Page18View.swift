@@ -41,10 +41,10 @@ struct Page18View: View {
                     }
 
                 })
-                .fullScreenCover(isPresented: $showPage12View) {
+                .storyFullScreenCover(isPresented: $showPage12View) {
                     Page12View()
                 }
-                .fullScreenCover(isPresented: $showPage24View) {
+                .storyFullScreenCover(isPresented: $showPage24View) {
                     Page24View()
                 }
 
@@ -54,7 +54,7 @@ struct Page18View: View {
                     showPage15View = true
 
                 })
-                .fullScreenCover(isPresented: $showPage15View) {
+                .storyFullScreenCover(isPresented: $showPage15View, style: .torchReveal) {
                     Page15View()
                 }
             }

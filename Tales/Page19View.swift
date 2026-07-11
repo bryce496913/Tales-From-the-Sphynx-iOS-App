@@ -41,7 +41,7 @@ struct Page19View: View {
                         showPage18View = true
 
                 })
-                    .fullScreenCover(isPresented: $showPage18View) {
+                    .storyFullScreenCover(isPresented: $showPage18View) {
                         Page18View()
                     }
                 }
@@ -58,7 +58,7 @@ struct Page19View: View {
                         showPage22View = true
 
                 })
-                    .fullScreenCover(isPresented: $showPage22View) {
+                    .storyFullScreenCover(isPresented: $showPage22View) {
                         Page22View()
                     }
                 }
