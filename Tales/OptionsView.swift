@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct OptionsView: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var gameOptions: GameOptions
     @State private var confirmingReset = false
 
@@ -9,6 +10,17 @@ struct OptionsView: View {
             EgyptianBackground()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 18) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Back", systemImage: "chevron.left")
+                            .font(.system(.headline, design: .serif).weight(.semibold))
+                            .foregroundColor(Color(hex: "1E140B"))
+                            .frame(maxWidth: .infinity, minHeight: 54)
+                    }
+                    .buttonStyle(StoryChoiceButtonStyle())
+                    .accessibilityLabel("Back to main menu")
+
                     optionSection("Story") {
                         OptionToggleRow(title: "Typewriter Text", detail: "Reveal story text gradually.", isOn: $gameOptions.typewriterEnabled)
                         VStack(alignment: .leading, spacing: 10) {
