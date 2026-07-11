@@ -1,6 +1,7 @@
 import SwiftUI
 
 enum StoryRoute: Hashable, Codable {
+    case options
     case plot1
     case plot2
     case page(Int)
@@ -116,6 +117,7 @@ struct StoryDestinationView: View {
 
     var body: some View {
         switch route {
+        case .options: OptionsView()
         case .plot1: Plot1View()
         case .plot2: Plot2View()
         case .page(let number):
