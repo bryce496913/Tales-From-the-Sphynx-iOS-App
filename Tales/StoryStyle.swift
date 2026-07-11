@@ -24,6 +24,18 @@ struct ChoiceButton: View {
     var height: CGFloat? = StoryStyle.choiceHeight
     let action: () -> Void
 
+    init(
+        _ title: String,
+        width: CGFloat? = StoryStyle.choiceWidth,
+        height: CGFloat? = StoryStyle.choiceHeight,
+        action: @escaping () -> Void
+    ) {
+        self.title = title
+        self.width = width
+        self.height = height
+        self.action = action
+    }
+
     var body: some View {
         Button(action: action) {
             Text(title)
@@ -36,4 +48,3 @@ struct ChoiceButton: View {
         }
     }
 }
-
