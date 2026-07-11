@@ -15,7 +15,7 @@ struct StoryPageEffects {
     var entryTransition: StoryTransitionStyle = .sandFade
     var exitTransition: StoryTransitionStyle = .sandFade
     var typewriterSpeed: TypewriterSpeed = .normal
-    var dustIntensity: DustIntensity = .subtle
+    var dustIntensity: DustIntensity = .normal
     var imageMotion: StoryImageMotionStyle = .slowZoom
     var choicesWaitForText: Bool = true
     static let standard = StoryPageEffects()
