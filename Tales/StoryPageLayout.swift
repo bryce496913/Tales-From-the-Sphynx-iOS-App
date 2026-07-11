@@ -22,9 +22,13 @@ struct StoryPageLayout<Content: View>: View {
         StoryTransitionContainer(style: reduceMotion ? .sandFade : effects.entryTransition) {
             ZStack {
                 EgyptianBackground()
+                    .ignoresSafeArea()
 
                 DustParticleOverlay(intensity: effects.dustIntensity)
-                    .zIndex(0)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                    .accessibilityHidden(true)
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 18) {
