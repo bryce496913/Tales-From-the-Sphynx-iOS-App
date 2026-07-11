@@ -6,6 +6,7 @@ struct StoryTransitionContainer<Content: View>: View {
     var onComplete: (() -> Void)? = nil
     @ViewBuilder let content: Content
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @EnvironmentObject private var gameOptions: GameOptions
     @State private var progress: CGFloat = 0
 
     var body: some View {
@@ -13,9 +14,9 @@ struct StoryTransitionContainer<Content: View>: View {
             .onAppear { run() }
             .onChange(of: isPresented) { _ in run() }
     }
-    private var contentOpacity: Double { reduceMotion ? 1 : Double(max(0.15, progress)) }
+    private var contentOpacity: Double { (reduceMotion || !gameOptions.pageTransitionsEnabled) ? 1 : Double(max(0.15, progress)) }
     @ViewBuilder private var overlay: some View {
-        if !reduceMotion && progress < 1 {
+        if !reduceMotion && gameOptions.pageTransitionsEnabled && progress < 1 {
             switch style {
             case .sandFade:
                 AppTheme.sand.opacity(Double(1 - progress) * 0.55).ignoresSafeArea()
@@ -36,6 +37,6 @@ struct StoryTransitionContainer<Content: View>: View {
         }
     }
     private var stonePanel: some View { LinearGradient(colors: [Color(hex:"5B5144"), Color(hex:"2E2924")], startPoint: .topLeading, endPoint: .bottomTrailing).shadow(color: .black.opacity(0.45), radius: 12, x: 0, y: 0) }
-    private func run() { progress = reduceMotion ? 1 : 0; withAnimation(.easeInOut(duration: reduceMotion ? 0.15 : duration)) { progress = 1 }; DispatchQueue.main.asyncAfter(deadline: .now() + duration) { onComplete?() } }
+    private func run() { progress = (reduceMotion || !gameOptions.pageTransitionsEnabled) ? 1 : 0; let actualDuration = (reduceMotion || !gameOptions.pageTransitionsEnabled) ? 0.05 : duration; withAnimation(.easeInOut(duration: actualDuration)) { progress = 1 }; DispatchQueue.main.asyncAfter(deadline: .now() + actualDuration) { onComplete?() } }
     private var duration: TimeInterval { reduceMotion ? 0.15 : (style == .sandFade ? 0.65 : 0.85) }
 }

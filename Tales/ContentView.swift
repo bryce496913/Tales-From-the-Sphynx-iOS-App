@@ -108,6 +108,17 @@ struct MainMenu: View {
                     navigationState.startNewAdventure()
                 }
 
+                NavigationLink(value: StoryRoute.options) {
+                    Text("Options")
+                        .font(.system(.headline, design: .serif).weight(.semibold))
+                        .foregroundColor(Color(hex: "1E140B"))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 14)
+                        .frame(maxWidth: .infinity, minHeight: 54)
+                }
+                .buttonStyle(StoryChoiceButtonStyle())
+
                 Spacer(minLength: 30)
             }
             .padding(AppTheme.screenPadding)
@@ -139,5 +150,6 @@ extension Color {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(GameOptions())
     }
 }

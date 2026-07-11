@@ -2,16 +2,17 @@
 //  TalesApp.swift
 //  Tales
 //
-//  Created by Bryce Cameron on 12/12/23.
-//
 
 import SwiftUI
 
 @main
 struct TalesApp: App {
+    @StateObject private var gameOptions = GameOptions()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameOptions)
         }
     }
 }
