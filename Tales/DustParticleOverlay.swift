@@ -4,79 +4,99 @@ struct DustParticleOverlay: View {
     var intensity: DustIntensity = .normal
     var direction: DustDirection = .drifting
     var isEnabled: Bool = true
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     private let particles: [DustParticle]
+    private let colors: [Color] = [
+        AppTheme.warmText,
+        AppTheme.sand,
+        AppTheme.gold
+    ]
 
     init(intensity: DustIntensity = .normal, direction: DustDirection = .drifting, isEnabled: Bool = true) {
         self.intensity = intensity
         self.direction = direction
         self.isEnabled = isEnabled
-        self.particles = (0..<intensity.count).map { DustParticle(seed: Double($0 + 1)) }
+        self.particles = (0..<intensity.count).map { DustParticle(index: $0) }
     }
 
     @ViewBuilder
     var body: some View {
-        if isEnabled {
+        if isEnabled, !particles.isEmpty {
             if reduceMotion {
                 particleTimeline(schedule: .periodic(from: .now, by: 60))
-                    .allowsHitTesting(false)
-                    .ignoresSafeArea()
-                    .accessibilityHidden(true)
             } else {
                 particleTimeline(schedule: .animation(minimumInterval: 1 / 30))
-                    .allowsHitTesting(false)
-                    .ignoresSafeArea()
-                    .accessibilityHidden(true)
             }
         }
     }
 
     private func particleTimeline<Schedule: TimelineSchedule>(schedule: Schedule) -> some View {
-        TimelineView(schedule) { context in
-            Canvas { ctx, size in
-                let time = reduceMotion ? 0 : context.date.timeIntervalSinceReferenceDate
+        TimelineView(schedule) { timeline in
+            Canvas { context, size in
+                let elapsed = reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate
                 let width = max(size.width, 1)
                 let height = max(size.height, 1)
 
                 for particle in particles {
-                    let driftX = CGFloat(sin(time * particle.horizontalSpeed + particle.seed)) * particle.horizontalDrift
-                    let baseX = particle.x * width
-                    let wrappedX = (baseX + driftX + width).truncatingRemainder(dividingBy: width)
+                    var particleContext = context
+                    let yProgress = (particle.normalizedY + elapsed * particle.speed)
+                        .truncatingRemainder(dividingBy: 1.2)
+                    let xProgress = particle.normalizedX + sin(elapsed * 0.25 + particle.phase) * particle.drift
+                    let wrappedX = positiveRemainder(xProgress, 1.0)
 
-                    let baseY = particle.y * height
-                    let travelY = CGFloat(time * particle.verticalSpeed).truncatingRemainder(dividingBy: height + 40)
-                    let wrappedY = (baseY + travelY).truncatingRemainder(dividingBy: height + 40) - 20
+                    let x = CGFloat(wrappedX) * width
+                    let y = CGFloat(yProgress / 1.2) * (height + 80) - 40
+                    let rect = CGRect(
+                        x: x - particle.size / 2,
+                        y: y - particle.size / 2,
+                        width: particle.size,
+                        height: particle.size
+                    )
 
-                    let rect = CGRect(x: wrappedX, y: wrappedY, width: particle.size, height: particle.size)
-                    let opacity = reduceMotion ? particle.opacity * 0.55 : particle.opacity
-                    ctx.addFilter(.blur(radius: particle.blur))
-                    ctx.fill(Path(ellipseIn: rect), with: .color(AppTheme.gold.opacity(opacity)))
+                    if particle.size > 3 {
+                        particleContext.addFilter(.blur(radius: 0.6))
+                    }
+
+                    let color = colors[particle.colorIndex % colors.count]
+                    let opacity = reduceMotion ? particle.opacity * 0.65 : particle.opacity
+                    particleContext.fill(Path(ellipseIn: rect), with: .color(color.opacity(opacity)))
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func positiveRemainder(_ value: Double, _ divisor: Double) -> Double {
+        let remainder = value.truncatingRemainder(dividingBy: divisor)
+        return remainder >= 0 ? remainder : remainder + divisor
     }
 }
 
-private struct DustParticle {
-    let seed: Double
-    let x: CGFloat
-    let y: CGFloat
+private struct DustParticle: Identifiable {
+    let id = UUID()
+    let normalizedX: Double
+    let normalizedY: Double
     let size: CGFloat
+    let speed: Double
+    let drift: Double
+    let phase: Double
     let opacity: Double
-    let verticalSpeed: Double
-    let horizontalSpeed: Double
-    let horizontalDrift: CGFloat
-    let blur: CGFloat
+    let colorIndex: Int
 
-    init(seed: Double) {
-        self.seed = seed
-        x = CGFloat((seed * 0.37).truncatingRemainder(dividingBy: 1))
-        y = CGFloat((seed * 0.61).truncatingRemainder(dividingBy: 1))
-        size = CGFloat(2.2 + (seed.truncatingRemainder(dividingBy: 4.8)))
-        opacity = 0.22 + (seed.truncatingRemainder(dividingBy: 6)) / 100
-        verticalSpeed = 4.5 + seed.truncatingRemainder(dividingBy: 7)
-        horizontalSpeed = 0.10 + (seed.truncatingRemainder(dividingBy: 5)) / 50
-        horizontalDrift = CGFloat(16 + seed.truncatingRemainder(dividingBy: 18))
-        blur = CGFloat(seed.truncatingRemainder(dividingBy: 1.2))
+    init(index: Int) {
+        let seed = Double(index + 1)
+        normalizedX = (seed * 0.38196601125).truncatingRemainder(dividingBy: 1)
+        normalizedY = (seed * 0.61803398875).truncatingRemainder(dividingBy: 1)
+        size = CGFloat(1.5 + (seed * 1.37).truncatingRemainder(dividingBy: 3.0))
+        speed = 0.006 + (seed * 0.0017).truncatingRemainder(dividingBy: 0.012)
+        drift = 0.012 + (seed * 0.0031).truncatingRemainder(dividingBy: 0.025)
+        phase = seed * 1.73
+        opacity = 0.18 + (seed * 0.047).truncatingRemainder(dividingBy: 0.30)
+        colorIndex = index
     }
 }
