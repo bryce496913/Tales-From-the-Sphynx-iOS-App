@@ -18,11 +18,17 @@ struct Page10View: View {
             Image(uiImage: #imageLiteral(resourceName: "Ten.png"))
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).fill(AppTheme.cardAlt))
+                .overlay(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
+                .shadow(color: AppTheme.shadow, radius: 14, x: 0, y: 8)
+                .padding(.horizontal)
 
             Text("After a few steps into the room, you hear a click under your foot. You take a step back, just in time as the floor tile that was under your foot, disintegrates away to reveal a pit of darkness. Do you try making a run for it to reach the ladder at the other end, or would it be better to take it slowly.")
                 .padding()
                 .foregroundColor(StoryStyle.textColor)
+                .font(.system(.body, design: .serif))
+                .lineSpacing(6)
 
             HStack {
                 ChoiceButton("Make a run for it", action: {

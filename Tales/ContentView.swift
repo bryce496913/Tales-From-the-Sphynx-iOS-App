@@ -13,13 +13,14 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            StoryStyle.pageBackground.edgesIgnoringSafeArea(.all)
+            EgyptianBackground()
 
             if isSplashActive {
                 SplashScreen()
+                    .transition(.opacity)
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            withAnimation {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            withAnimation(.easeInOut(duration: 0.45)) {
                                 isSplashActive = false
                             }
                         }
@@ -27,6 +28,7 @@ struct ContentView: View {
             } else {
                 MainMenu()
                     .environmentObject(navigationState)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
         .fullScreenCover(item: $navigationState.adventureSession) { _ in
@@ -37,42 +39,71 @@ struct ContentView: View {
 }
 
 struct SplashScreen: View {
+    @State private var appeared = false
+
     var body: some View {
-        VStack {
-            Spacer()
-            Image(uiImage: #imageLiteral(resourceName: "Icon.png"))
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.main.bounds.width)
-                .padding()
-            Spacer()
+        ZStack {
+            EgyptianBackground()
+            VStack(spacing: 20) {
+                Image(uiImage: #imageLiteral(resourceName: "Icon.png"))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: 220)
+                    .padding()
+                    .goldCard(padding: 12)
+                Text("Tales From the Sphinx")
+                    .font(.system(.title, design: .serif).weight(.bold))
+                    .foregroundColor(AppTheme.gold)
+            }
+            .opacity(appeared ? 1 : 0)
+            .scaleEffect(appeared ? 1 : 0.96)
         }
-        .background(StoryStyle.menuBackground.edgesIgnoringSafeArea(.all))
+        .onAppear { withAnimation(.easeOut(duration: 0.55)) { appeared = true } }
     }
 }
 
 struct MainMenu: View {
     @EnvironmentObject private var navigationState: AppNavigationState
+    @State private var appeared = false
 
     var body: some View {
+        ZStack {
+            EgyptianBackground()
+            VStack(spacing: 24) {
+                Spacer(minLength: 20)
 
-        VStack {
+                Image(uiImage:#imageLiteral(resourceName: "Title-Screen-Art.png"))
+                    .resizable()
+                    .scaledToFit()
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(AppTheme.cardAlt))
+                    .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
+                    .shadow(color: AppTheme.shadow, radius: 22, x: 0, y: 14)
 
-            Image(uiImage:#imageLiteral(resourceName: "Title-Screen-Art.png"))
-                .resizable()
-                .scaledToFit()
-                .padding()
+                VStack(spacing: 8) {
+                    Text("Tales From the Sphinx")
+                        .font(.system(size: 38, weight: .bold, design: .serif))
+                        .foregroundColor(AppTheme.gold)
+                        .multilineTextAlignment(.center)
+                    Text("An Egyptian adventure of mystery, treasure, and danger")
+                        .font(.system(.subheadline, design: .serif).weight(.medium))
+                        .foregroundColor(AppTheme.mutedText)
+                        .multilineTextAlignment(.center)
+                }
+                .goldCard()
 
-            ChoiceButton("New Game", width: nil, height: nil, action: {
-                navigationState.startNewAdventure()
+                MenuButton(title: "New Game") {
+                    navigationState.startNewAdventure()
+                }
+                .padding(.top, 6)
 
-            })
-
-            Spacer()
-
+                Spacer(minLength: 30)
+            }
+            .padding(AppTheme.screenPadding)
+            .opacity(appeared ? 1 : 0)
+            .offset(y: appeared ? 0 : 18)
         }
-        .background(StoryStyle.menuBackground.edgesIgnoringSafeArea(.all))
-
+        .onAppear { withAnimation(.easeOut(duration: 0.55)) { appeared = true } }
     }
 }
 

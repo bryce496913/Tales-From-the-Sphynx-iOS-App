@@ -18,11 +18,17 @@ struct Page4View: View {
             Image(uiImage: #imageLiteral(resourceName: "Four.png"))
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).fill(AppTheme.cardAlt))
+                .overlay(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
+                .shadow(color: AppTheme.shadow, radius: 14, x: 0, y: 8)
+                .padding(.horizontal)
 
             Text("You wander slowly down the left corridor and find yourself in a small room. In the center of the room, there is a pit that stretches from side to side and seems to be about 1.5 meters in length. On the other side of the pit is a door. Unenthusiastic about wanting to jump over the pit, you look around and notice a door just to your left.")
                 .padding()
                 .foregroundColor(StoryStyle.textColor)
+                .font(.system(.body, design: .serif))
+                .lineSpacing(6)
 
             HStack {
                 ChoiceButton("Enter the door on the left", action: {

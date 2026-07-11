@@ -18,11 +18,17 @@ struct Page1View: View {
             Image(uiImage: #imageLiteral(resourceName: "One.png"))
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).fill(AppTheme.cardAlt))
+                .overlay(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
+                .shadow(color: AppTheme.shadow, radius: 14, x: 0, y: 8)
+                .padding(.horizontal)
 
             Text("As you stand at the feet of this enormous Sphynx, you notice that the main doorway is open. You think to yourself, head inside to find help or head back in the direction where the road could be.")
                 .padding()
                 .foregroundColor(StoryStyle.textColor)
+                .font(.system(.body, design: .serif))
+                .lineSpacing(6)
 
             HStack {
                 ChoiceButton("Try to enter the sphynx", action: {

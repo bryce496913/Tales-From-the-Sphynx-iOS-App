@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FEA000112B300001000001 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA000012B300001000001 /* AppTheme.swift */; };
+		FEA000122B300001000001 /* ChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA000022B300001000001 /* ChoiceButton.swift */; };
+		FEA000132B300001000001 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA000032B300001000001 /* MenuButton.swift */; };
+		FEA000142B300001000001 /* StoryPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA000042B300001000001 /* StoryPageLayout.swift */; };
 		FE02674A2B28A22F00F5C31D /* Plot1.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02672C2B28A22B00F5C31D /* Plot1.png */; };
 		FE02674B2B28A22F00F5C31D /* Nineteen.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02672D2B28A22B00F5C31D /* Nineteen.png */; };
 		FE02674C2B28A22F00F5C31D /* Nine.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02672E2B28A22C00F5C31D /* Nine.png */; };
@@ -74,6 +78,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FEA000012B300001000001 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		FEA000022B300001000001 /* ChoiceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceButton.swift; sourceTree = "<group>"; };
+		FEA000032B300001000001 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		FEA000042B300001000001 /* StoryPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryPageLayout.swift; sourceTree = "<group>"; };
 		FE02672C2B28A22B00F5C31D /* Plot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plot1.png; sourceTree = "<group>"; };
 		FE02672D2B28A22B00F5C31D /* Nineteen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Nineteen.png; sourceTree = "<group>"; };
 		FE02672E2B28A22C00F5C31D /* Nine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Nine.png; sourceTree = "<group>"; };
@@ -214,6 +222,10 @@
 				FE9990002B289A4F0015CAFB /* StoryStyle.swift */,
 				FE9990022B289A4F0015CAFB /* AppNavigationState.swift */,
 				FE9990042B289A4F0015CAFB /* AdventureResetButtons.swift */,
+				FEA000012B300001000001 /* AppTheme.swift */,
+				FEA000022B300001000001 /* ChoiceButton.swift */,
+				FEA000032B300001000001 /* MenuButton.swift */,
+				FEA000042B300001000001 /* StoryPageLayout.swift */,
 				FE02676A2B28AB1800F5C31D /* Plot1View.swift */,
 				FE02676C2B28B9A300F5C31D /* Plot2View.swift */,
 				FE02676E2B28BA1900F5C31D /* Page1View.swift */,
@@ -367,6 +379,10 @@
 				FE9990012B289A4F0015CAFB /* StoryStyle.swift in Sources */,
 				FE9990032B289A4F0015CAFB /* AppNavigationState.swift in Sources */,
 				FE9990052B289A4F0015CAFB /* AdventureResetButtons.swift in Sources */,
+				FEA000112B300001000001 /* AppTheme.swift in Sources */,
+				FEA000122B300001000001 /* ChoiceButton.swift in Sources */,
+				FEA000132B300001000001 /* MenuButton.swift in Sources */,
+				FEA000142B300001000001 /* StoryPageLayout.swift in Sources */,
 				FE0267812B28BF0400F5C31D /* Page10View.swift in Sources */,
 				FE0267932B28C46700F5C31D /* Page19View.swift in Sources */,
 				FE0267992B28C6F500F5C31D /* Page22View.swift in Sources */,

@@ -18,11 +18,17 @@ struct Page9View: View {
             Image(uiImage: #imageLiteral(resourceName: "Nine.png"))
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).fill(AppTheme.cardAlt))
+                .overlay(RoundedRectangle(cornerRadius: AppTheme.imageRadius, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
+                .shadow(color: AppTheme.shadow, radius: 14, x: 0, y: 8)
+                .padding(.horizontal)
 
             Text("On immediate inspection, this new room has nowhere obvious to go to next. Your worrying thought is interrupted by a thunderous sound, followed by rapidly rushing sand filling the room. You need to find a way out before you are buried alive. In the room are two statues, both with levers, one of God Anubis and the other of God Osiris. One of these statues could be the key out of here. If only you had reception, you could Google which each God represents.")
                 .padding()
                 .foregroundColor(StoryStyle.textColor)
+                .font(.system(.body, design: .serif))
+                .lineSpacing(6)
 
             HStack {
                 ChoiceButton("Pick Anubis", action: {
