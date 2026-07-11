@@ -118,6 +118,7 @@ struct MainMenu: View {
                         .frame(maxWidth: .infinity, minHeight: 54)
                 }
                 .buttonStyle(StoryChoiceButtonStyle())
+                .frame(maxWidth: 280)
 
                 Spacer(minLength: 30)
             }
