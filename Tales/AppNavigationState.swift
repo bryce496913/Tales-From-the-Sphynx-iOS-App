@@ -11,6 +11,7 @@ struct AdventureSession: Identifiable {
     let id = UUID()
 }
 
+@MainActor
 final class AppNavigationState: ObservableObject {
     @Published var adventureSession: AdventureSession?
 
@@ -20,13 +21,34 @@ final class AppNavigationState: ObservableObject {
 
     func resetToMainMenu() {
         adventureSession = nil
+        dismissPresentedAdventure()
     }
 
     func restartAdventure() {
         adventureSession = nil
-
-        DispatchQueue.main.async { [weak self] in
+        dismissPresentedAdventure { [weak self] in
             self?.adventureSession = AdventureSession()
         }
+    }
+
+    private func dismissPresentedAdventure(completion: (() -> Void)? = nil) {
+        guard let rootViewController = activeRootViewController else {
+            completion?()
+            return
+        }
+
+        if rootViewController.presentedViewController == nil {
+            completion?()
+        } else {
+            rootViewController.dismiss(animated: true, completion: completion)
+        }
+    }
+
+    private var activeRootViewController: UIViewController? {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first { $0.isKeyWindow }?
+            .rootViewController
     }
 }
