@@ -27,3 +27,12 @@ struct RandomStoryNavigationButton: View {
         }
     }
 }
+
+struct StoryNavigationButton_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewContainer {
+            StoryNavigationButton(title: "Preview Choice", route: .page(1))
+                .padding()
+        }
+    }
+}

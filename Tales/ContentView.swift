@@ -84,6 +84,7 @@ struct MainMenu: View {
                     .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(AppTheme.cardAlt))
                     .overlay(RoundedRectangle(cornerRadius: 28, style: .continuous).stroke(AppTheme.gold.opacity(0.55), lineWidth: 1))
                     .shadow(color: AppTheme.shadow, radius: 22, x: 0, y: 14)
+                    .frame(maxWidth: AppTheme.maximumStoryContentWidth)
 
                 VStack(spacing: 8) {
                     Text("Tales From the Sphinx")
@@ -96,6 +97,7 @@ struct MainMenu: View {
                         .multilineTextAlignment(.center)
                 }
                 .goldCard()
+                .frame(maxWidth: AppTheme.maximumTextWidth)
 
                 if navigationState.hasSavedProgress {
                     MenuButton(title: "Continue Adventure") {
@@ -151,6 +153,14 @@ extension Color {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(GameOptions())
+            .environmentObject(GameOptions(defaults: UserDefaults(suiteName: "TalesPreview.Content") ?? .standard))
+    }
+}
+
+struct MainMenu_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewContainer {
+            MainMenu()
+        }
     }
 }

@@ -20,5 +20,6 @@ struct AdventureResetButtons: View {
                 navigationState.restartAdventure()
             })
         }
+        .frame(maxWidth: AppTheme.maximumButtonWidth)
     }
 }

@@ -29,6 +29,8 @@ struct Page16View: View {
 
 struct Page16View_Previews: PreviewProvider {
     static var previews: some View {
-        Page16View()
+        PreviewContainer {
+            Page16View()
+        }
     }
 }

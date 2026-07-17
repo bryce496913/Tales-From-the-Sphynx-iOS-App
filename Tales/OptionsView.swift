@@ -82,3 +82,11 @@ struct OptionToggleRow: View {
         .accessibilityHint(detail)
     }
 }
+
+struct OptionsView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewContainer {
+            OptionsView()
+        }
+    }
+}

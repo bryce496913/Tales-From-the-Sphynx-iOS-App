@@ -16,6 +16,9 @@ enum AppTheme {
     static let cornerRadius: CGFloat = 24
     static let buttonRadius: CGFloat = 18
     static let imageRadius: CGFloat = 22
+    static let maximumStoryContentWidth: CGFloat = 760
+    static let maximumTextWidth: CGFloat = 680
+    static let maximumButtonWidth: CGFloat = 520
 
     static var background: LinearGradient {
         LinearGradient(colors: [backgroundTop, backgroundBottom], startPoint: .topLeading, endPoint: .bottomTrailing)

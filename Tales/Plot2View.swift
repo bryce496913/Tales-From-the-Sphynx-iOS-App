@@ -14,5 +14,9 @@ struct Plot2View: View {
 }
 
 struct Plot2View_Previews: PreviewProvider {
-    static var previews: some View { Plot2View() }
+    static var previews: some View {
+        PreviewContainer {
+            Plot2View()
+        }
+    }
 }
