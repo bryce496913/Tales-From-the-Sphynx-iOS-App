@@ -8,12 +8,11 @@ enum TypewriterSpeed: Equatable { case slow, normal, fast
 
 struct StoryPageEffects {
     var entryTransition: StoryTransitionStyle = .sandFade
-    var exitTransition: StoryTransitionStyle = .sandFade
-    var typewriterSpeed: TypewriterSpeed = .normal
     var choicesWaitForText: Bool = true
+
     static let standard = StoryPageEffects()
-    static let torchLit = StoryPageEffects(entryTransition: .torchReveal, exitTransition: .torchReveal)
-    static let doorway = StoryPageEffects(entryTransition: .stoneDoor, exitTransition: .stoneDoor)
+    static let torchLit = StoryPageEffects(entryTransition: .torchReveal)
+    static let doorway = StoryPageEffects(entryTransition: .stoneDoor)
 }
 
 final class HapticManager {

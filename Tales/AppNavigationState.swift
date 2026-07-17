@@ -27,14 +27,28 @@ final class AppNavigationState: ObservableObject {
     @Published private(set) var completedEndings: Set<String> = []
 
     private let saveKey = "Tales.story.save.v2"
+    private let defaults: UserDefaults
     private var isRestoring = false
 
-    init() { loadSavedProgressFlag() }
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        loadSavedProgressFlag()
+    }
+
+    convenience init(previewMode: Bool) {
+        if previewMode {
+            let suiteName = "TalesPreview.\(UUID().uuidString)"
+            let defaults = UserDefaults(suiteName: suiteName) ?? .standard
+            defaults.removePersistentDomain(forName: suiteName)
+            self.init(defaults: defaults)
+        } else {
+            self.init()
+        }
+    }
 
     var currentRoute: StoryRoute? { path.last }
 
     func startNewAdventure() {
-        completedEndings.removeAll()
         isAdventureActive = true
         path = [.plot1]
         persistProgress()
@@ -61,8 +75,16 @@ final class AppNavigationState: ObservableObject {
         path.append(route)
     }
 
+    func markEndingReached(_ endingID: String) {
+        var endings = completedEndings
+        let inserted = endings.insert(endingID).inserted
+        if inserted { completedEndings = endings }
+        if isAdventureActive { isAdventureActive = false }
+        if inserted || hasSavedProgress { persistProgress() }
+    }
+
     func completeStory(endingID: String? = nil) {
-        if let endingID { completedEndings.insert(endingID) }
+        if let endingID { markEndingReached(endingID) }
         isAdventureActive = false
         path = []
         persistProgress()
@@ -77,7 +99,7 @@ final class AppNavigationState: ObservableObject {
     func restartAdventure() { startNewAdventure() }
 
     func resetSavedProgress() {
-        UserDefaults.standard.removeObject(forKey: saveKey)
+        defaults.removeObject(forKey: saveKey)
         hasSavedProgress = false
         completedEndings.removeAll()
         isAdventureActive = false
@@ -96,10 +118,10 @@ final class AppNavigationState: ObservableObject {
             reducedEffects: reducedEffects
         )
         if let data = try? JSONEncoder().encode(save) {
-            UserDefaults.standard.set(soundEnabled, forKey: "Tales.soundEnabled")
-            UserDefaults.standard.set(hapticsEnabled, forKey: "Tales.hapticsEnabled")
-            UserDefaults.standard.set(reducedEffects, forKey: "Tales.reducedEffects")
-            UserDefaults.standard.set(data, forKey: saveKey)
+            defaults.set(soundEnabled, forKey: "Tales.soundEnabled")
+            defaults.set(hapticsEnabled, forKey: "Tales.hapticsEnabled")
+            defaults.set(reducedEffects, forKey: "Tales.reducedEffects")
+            defaults.set(data, forKey: saveKey)
             hasSavedProgress = save.isInProgress
         }
     }
@@ -107,7 +129,7 @@ final class AppNavigationState: ObservableObject {
     private func loadSavedProgressFlag() { hasSavedProgress = loadSave()?.isInProgress == true }
 
     private func loadSave() -> StorySaveState? {
-        guard let data = UserDefaults.standard.data(forKey: saveKey) else { return nil }
+        guard let data = defaults.data(forKey: saveKey) else { return nil }
         return try? JSONDecoder().decode(StorySaveState.self, from: data)
     }
 }

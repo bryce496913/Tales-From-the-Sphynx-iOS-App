@@ -10,10 +10,12 @@ enum StoryOutcome { case win, lose, death
 }
 
 struct StoryOutcomeView: View {
+    let endingID: String
     let outcome: StoryOutcome
     let imageName: String
     let storyText: String
     @EnvironmentObject private var gameOptions: GameOptions
+    @EnvironmentObject private var navigationState: AppNavigationState
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var appeared = false
     @State private var hapticPlayed = false
@@ -29,6 +31,7 @@ struct StoryOutcomeView: View {
                     outcomeCard
                     AdventureResetButtons().padding(.horizontal)
                 }
+                .frame(maxWidth: AppTheme.maximumStoryContentWidth)
                 .padding(.horizontal, AppTheme.screenPadding)
                 .padding(.top, 18)
                 .padding(.bottom, 24)
@@ -38,6 +41,7 @@ struct StoryOutcomeView: View {
         .onAppear {
             textComplete = !gameOptions.typewriterEnabled || reduceMotion
             guard !appeared else { return }
+            navigationState.markEndingReached(endingID)
             if animationsEnabled { runEntrance() } else { appeared = true }
             if !hapticPlayed { outcome.playHaptic(); hapticPlayed = true }
         }
@@ -61,7 +65,7 @@ struct StoryOutcomeView: View {
             Text(outcome.subtitle).font(.system(.subheadline, design: .serif).weight(.medium)).foregroundColor(AppTheme.mutedText).multilineTextAlignment(.center)
             TypewriterText(text: storyText, speed: gameOptions.typewriterSpeed.speed, startDelay: animationsEnabled ? 0.25 : 0, isEnabled: gameOptions.typewriterEnabled && !reduceMotion) { textComplete = true }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: AppTheme.maximumTextWidth)
         .padding(AppTheme.cardPadding)
         .background(RoundedRectangle(cornerRadius: AppTheme.cornerRadius, style: .continuous).fill(outcome.background).overlay(RoundedRectangle(cornerRadius: AppTheme.cornerRadius, style: .continuous).stroke(outcome.accent.opacity(0.75), lineWidth: 1.25)).shadow(color: outcome.accent.opacity(0.22), radius: 18, x: 0, y: 10))
         .offset(x: shakeOffset, y: animationsEnabled && !appeared ? 12 : 0)
@@ -85,6 +89,23 @@ struct StoryOutcomeView: View {
             withAnimation(.easeOut(duration: 0.55)) { appeared = true }
         case .lose:
             withAnimation(.easeOut(duration: 0.25)) { appeared = true }
+        }
+    }
+}
+
+
+struct StoryOutcomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            PreviewContainer {
+                StoryOutcomeView(endingID: "preview-win", outcome: .win, imageName: "Thirteen.png", storyText: "A preview victory ending demonstrates the shared outcome screen.")
+            }
+            PreviewContainer {
+                StoryOutcomeView(endingID: "preview-lose", outcome: .lose, imageName: "Seven.png", storyText: "A preview defeat ending demonstrates the shared outcome screen.")
+            }
+            PreviewContainer {
+                StoryOutcomeView(endingID: "preview-death", outcome: .death, imageName: "Two.png", storyText: "A preview death ending demonstrates the shared outcome screen.")
+            }
         }
     }
 }
