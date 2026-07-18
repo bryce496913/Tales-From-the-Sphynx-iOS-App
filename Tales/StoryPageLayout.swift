@@ -11,7 +11,7 @@ struct StaticStoryImage: View {
         storyImage
             .resizable()
             .scaledToFill()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: AppTheme.maximumStoryContentWidth)
             .aspectRatio(16/10, contentMode: .fill)
             .clipped()
             .background(AppTheme.cardAlt)
@@ -63,15 +63,16 @@ struct StoryPageLayout<Content: View>: View {
                             if let title { Text(title).font(.system(.title2, design: .serif).weight(.bold)).foregroundColor(AppTheme.gold) }
                             TypewriterText(text: text, speed: gameOptions.typewriterSpeed.speed, startDelay: reduceMotion ? 0 : 0.45, isEnabled: gameOptions.typewriterEnabled && !reduceMotion) { textComplete = true }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: AppTheme.maximumTextWidth, alignment: .leading)
                         .goldCard()
                         .contentShape(Rectangle())
                         VStack(spacing: 12) { choices }
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: AppTheme.maximumButtonWidth)
                             .opacity(choicesVisible ? 1 : 0)
                             .disabled(!choicesVisible)
                             .animation(.easeOut(duration: gameOptions.pageTransitionsEnabled && !reduceMotion ? 0.3 : 0.05), value: choicesVisible)
                     }
+                    .frame(maxWidth: AppTheme.maximumStoryContentWidth)
                     .padding(.horizontal, AppTheme.screenPadding).padding(.top, 18).padding(.bottom, 24)
                     .opacity(appeared ? 1 : 0).offset(y: appeared ? 0 : 10)
                 }.zIndex(1)
@@ -85,4 +86,14 @@ struct StoryPageLayout<Content: View>: View {
     }
     private var transitionStyle: StoryTransitionStyle { (reduceMotion || !gameOptions.pageTransitionsEnabled) ? .sandFade : effects.entryTransition }
     private var choicesVisible: Bool { !effects.choicesWaitForText || textComplete || reduceMotion || !gameOptions.typewriterEnabled }
+}
+
+struct StoryPageLayout_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewContainer {
+            StoryPageLayout(imageName: "One.png", title: "Preview", text: "A normal story page preview with shared environment objects.") {
+                StoryNavigationButton(title: "Continue", route: .page(2))
+            }
+        }
+    }
 }
